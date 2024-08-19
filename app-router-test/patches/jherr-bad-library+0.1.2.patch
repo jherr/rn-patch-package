@@ -1,0 +1,27 @@
+diff --git a/node_modules/jherr-bad-library/index.tsx b/node_modules/jherr-bad-library/index.tsx
+index f611134..028a741 100644
+--- a/node_modules/jherr-bad-library/index.tsx
++++ b/node_modules/jherr-bad-library/index.tsx
+@@ -1,12 +1,18 @@
+ import React, { useState, useEffect } from "react";
+ 
+ export default function BadComponent() {
+-  const [count, setCount] = useState(
+-    localStorage.getItem("count") ? +localStorage.getItem("count") : 0
+-  );
++  const [count, setCount] = useState(0);
++
++  useEffect(() => {
++    setCount(
++      localStorage.getItem("count") ? +localStorage.getItem("count") : 0
++    );
++  }, []);
+ 
+   useEffect(() => {
+-    localStorage.setItem("count", count);
++    if (count > 0) {
++      localStorage.setItem("count", count);
++    }
+   }, [count]);
+ 
+   return (
